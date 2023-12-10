@@ -14,4 +14,5 @@ cp ~/*.pem .
 npm run build
 #pm2 start ./dist/starter.js --update-env
 pm2 restart starter --update-env
+pm2 save
 pm2 logs

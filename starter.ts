@@ -1,6 +1,6 @@
 import Express from 'express'
 import dotenv from "dotenv";
-import router from "./src/routes";
+import router from "./src/routes.js";
 import * as https from "https";
 import * as fs from "fs";
 

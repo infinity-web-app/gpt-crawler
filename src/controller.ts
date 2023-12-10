@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
-import {Config} from "./config";
-import {crawl, write} from "./core";
+import {Config} from "./config.js";
+import {crawl, write} from "./core.js";
 
 const defaultConfig: Config = {
     url: "https://www.builder.io/c/docs/developers",

@@ -1,6 +1,6 @@
 import {Router} from "express";
-import authInterceptor from "./auth.interceptor";
-import controller from "./controller";
+import authInterceptor from "./auth.interceptor.js";
+import controller from "./controller.js";
 
 
 const router = Router();
