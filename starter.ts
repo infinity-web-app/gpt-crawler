@@ -4,14 +4,10 @@ import router from "./src/routes.js";
 import * as https from "https";
 import * as fs from "fs";
 
-const timeout = require('express-timeout-handler')
-
 const port = 80
 const app = Express()
-const options = {timeout: 300000}
 app.use(Express.urlencoded({extended: false}))
 app.use(Express.json())
-app.use(timeout.handler(options))
 
 dotenv.config()
 
