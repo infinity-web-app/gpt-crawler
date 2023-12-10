@@ -5,14 +5,13 @@ pm2 stop starter
 :> ~/.pm2/logs/starter-error.log
 git reset --hard
 git pull
-bun upgrade
-bun install -g pm2
-bun install
+npm install -g pm2
 npm install
 #bunx @puppeteer/browsers install chrome@stable --path $HOME/.cache/puppeteer
 pm2 update
 #cp ~/.env .
 cp ~/*.pem .
-#pm2 start --interpreter bun starter.ts --update-env
+npm run build
+#pm2 start ./dist/starter.js --update-env
 pm2 restart starter --update-env
 pm2 logs
