@@ -3,9 +3,9 @@ import {Config} from "./config.js";
 import {crawl, write} from "./core.js";
 
 const defaultConfig: Config = {
+    match: [],
     url: "https://www.builder.io/c/docs/developers",
     maxPagesToCrawl: 50,
-    match: "",
     outputFileName: "output.json"
 };
 
