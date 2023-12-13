@@ -27,7 +27,10 @@ export default {
             await crawl(config);
             // serving written output.json files through express
             const writtenFiles = await write(config);
-            response.status(200).send({outputFiles: writtenFiles.map(f => 'https://gpt-crawler.infinityweb.dev/' + f)});
+            response.status(200).send({
+                outputFiles: writtenFiles.map(f => f.replace("public", ""))
+                    .map(f => 'https://gpt-crawler.infinityweb.dev' + f)
+            });
         } catch (e) {
             console.error('Error occurred in gpt-crawler.', e);
             response.status(500).send({message: 'Internal server error.'});
