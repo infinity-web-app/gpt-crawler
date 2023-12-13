@@ -22,11 +22,12 @@ export default {
             response.status(400).send({message: 'Invalid request body.'});
         }
 
+        config.outputFileName = "public/" + config.outputFileName;
         try {
             await crawl(config);
-            // todo serve written output.json file through express
-            await write(config);
-            response.status(200).send({message: 'Crawl completed successfully.'});
+            // serving written output.json files through express
+            const writtenFiles = await write(config);
+            response.status(200).send({outputFiles: writtenFiles.map(f => 'https://gpt-crawler.infinityweb.dev/' + f)});
         } catch (e) {
             console.error('Error occurred in gpt-crawler.', e);
             response.status(500).send({message: 'Internal server error.'});

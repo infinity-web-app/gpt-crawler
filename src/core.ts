@@ -1,10 +1,10 @@
 // For more information, see https://crawlee.dev/
-import { PlaywrightCrawler, downloadListOfUrls } from "crawlee";
-import { readFile, writeFile } from "fs/promises";
-import { glob } from "glob";
-import { Config, configSchema } from "./config.js";
-import { Page } from "playwright";
-import { isWithinTokenLimit } from "gpt-tokenizer";
+import {downloadListOfUrls, PlaywrightCrawler} from "crawlee";
+import {readFile, writeFile} from "fs/promises";
+import {glob} from "glob";
+import {Config, configSchema} from "./config.js";
+import {Page} from "playwright";
+import {isWithinTokenLimit} from "gpt-tokenizer";
 
 let pageCounter = 0;
 
@@ -142,7 +142,7 @@ export async function crawl(config: Config) {
   }
 }
 
-export async function write(config: Config) {
+export async function write(config: Config): Promise<string[]> {
   const jsonFiles = await glob("storage/datasets/default/*.json", {
     absolute: true,
   });
@@ -161,10 +161,12 @@ export async function write(config: Config) {
 
   const nextFileName = (): string =>
     `${config.outputFileName.replace(/\.json$/, "")}-${fileCounter}.json`;
+  const writtenFiles: string[] = [];
 
   const writeBatchToFile = async (): Promise<void> => {
     await writeFile(nextFileName(), JSON.stringify(currentResults, null, 2));
     console.log(`Wrote ${currentResults.length} items to ${nextFileName()}`);
+    writtenFiles.push(nextFileName());
     currentResults = [];
     currentSize = 0;
     fileCounter++;
@@ -213,4 +215,6 @@ export async function write(config: Config) {
   if (currentResults.length > 0) {
     await writeBatchToFile();
   }
+
+  return writtenFiles;
 }

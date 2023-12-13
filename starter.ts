@@ -8,6 +8,7 @@ const port = 443
 const app = Express()
 app.use(Express.urlencoded({extended: false}))
 app.use(Express.json())
+app.use(Express.static('public'))
 
 dotenv.config()
 
